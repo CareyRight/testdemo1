@@ -3,5 +3,6 @@
   <grid canEdit="true" canNew="true" title="Order-Grid" name="order-grid" model="com.db.demo.entity.Order">
     <field canEdit="true" title="Name" name="name"/>
     <field canEdit="true" name="code"/>
+    <field canEdit="true" title="Amount" name="amount"/>
   </grid>
 </object-views>

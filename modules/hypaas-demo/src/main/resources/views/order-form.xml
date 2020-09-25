@@ -3,5 +3,6 @@
   <form canEdit="true" canNew="true" title="Order-Form" name="order-form" model="com.db.demo.entity.Order">
     <field canEdit="true" name="name"/>
     <field canEdit="true" name="code"/>
+    <field canEdit="true" title="Amount" name="amount"/>
   </form>
 </object-views>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-views  xmlns="http://hypaas.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hypaas.com/xml/ns/object-views http://hypaas.com/xml/ns/object-views/object-views_5.3.xsd">
+  <menuitem name="menu-order" action="action-view-order" title="Order-Menu"/>
+</object-views>

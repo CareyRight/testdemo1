@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://hypaas.com/xml/ns/object-views"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://hypaas.com/xml/ns/object-views http://hypaas.com/xml/ns/object-views/object-views_5.3.xsd">
+
+  <grid name="ExtendActFlowBus-grid" title="ExtendActFlowBus" model="com.hypaas.activiti.db.ExtendActFlowBus"
+        canNew="false" canEdit="false" canDelete="false" edit-icon="false"
+        orderBy="-startTime">
+    <field name="busId"/>
+    <field name="status"/>
+    <field name="startTime"/>
+    <field name="instanceId"/>
+    <field name="defid"/>
+    <field name="startUserId"/>
+    <field name="code"/>
+    <field name="actKey"/>
+    <field name="tableName"/>
+    <button name="process information" title="Process Information" onClick="ExtendActFlowBus-Process-Information-action" icon="fa-list-ul"/>
+    <button name="process detail" title="Process Detail" onClick="ExtendActFlowBus-Process-Detail-action" icon="fa-newspaper-o"/>
+  </grid>
+
+  <action-method name="ExtendActFlowBus-Process-Information-action">
+    <call class="com.hypaas.activiti.controller.ExtendActDealController" method="flowInfoHtml"/>
+  </action-method>
+
+  <action-method name="ExtendActFlowBus-Process-Detail-action">
+    <call class="com.hypaas.activiti.controller.ActBusInfoController" method="leave"/>
+  </action-method>
+
+</object-views>

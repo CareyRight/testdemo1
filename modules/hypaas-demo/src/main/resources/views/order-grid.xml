@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-views  xmlns="http://hypaas.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hypaas.com/xml/ns/object-views http://hypaas.com/xml/ns/object-views/object-views_5.3.xsd">
+  <grid canEdit="true" canNew="true" title="Order-Grid" name="order-grid" model="com.db.demo.entity.Order">
+    <field canEdit="true" title="Name" name="name"/>
+    <field canEdit="true" name="code"/>
+  </grid>
+</object-views>

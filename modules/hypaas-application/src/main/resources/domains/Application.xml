@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<domain-models xmlns="http://hypaas.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://hypaas.com/xml/ns/domain-models http://hypaas.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="application" package="com.hypaas.app.db"/>
+
+  <entity name="Application" cacheable="false">
+    <string name="name" required="true" min="2" title="ApplicationName" />
+    <string name="code" required="true" unique="true" title="ApplicationCode"/>
+    <string name="remarks" large="true" title="Remarks"/>
+    <many-to-many name="userArray" ref="com.hypaas.auth.db.User" title="UserArray"/>
+  </entity>
+
+</domain-models>

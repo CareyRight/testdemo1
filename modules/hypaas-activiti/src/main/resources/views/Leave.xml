@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://hypaas.com/xml/ns/object-views"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://hypaas.com/xml/ns/object-views http://hypaas.com/xml/ns/object-views/object-views_5.3.xsd">
+
+  <grid name="activiti-leave-grid" title="Leaves" model="com.hypaas.activiti.db.Leave"
+        canDelete="false" canArchive="false">
+    <field name="applicant"/>
+    <field name="code"/>
+    <field name="title"/>
+    <field name="num"/>
+    <field name="reson"/>
+    <field name="status"/>
+    <field name="actResult"/>
+    <button name="Leave Submit" onClick="action-leave-submit" title="Leave Form Submit" showIf="status == 'DRAFT'" icon="fa-level-up"/>
+    <button name="Leave Delete" onClick="action-leave-delete" title="Leave Delete" showIf="status == 'DRAFT'" icon="fa-trash"/>
+    <button name="View Flowchart" onClick="action-leave-flowchart" title="View Flowchart" showIf="status != 'DRAFT'" icon="fa-file-image-o"/>
+    <button name="Approval Record" onClick="ExtendActFlowBus-Process-Information-action" title="Approval Record" showIf="status != 'DRAFT'" icon="fa-list-ul"/>
+  </grid>
+
+  <form name="activiti-leave-form" title="Leaves" model="com.hypaas.activiti.db.Leave"
+        onSave="load-field-param" width="large"
+        canArchive="false" canAttach="false" canCopy="false">
+    <panel title="Leave form">
+      <field name="title" title="Leave Title"/>
+      <field name="num" title="Leave num"/>
+      <field name="code" readonly="true" title="Leave Code"/>
+      <field name="status" readonly="true" title="Leave Status"/>
+      <field name="busId" hidden="true" title="Bus Id"/>
+      <field name="reson" widget="html" colSpan="12" title="Leave reson"/>
+    </panel>
+  </form>
+
+  <action-group name="load-field-param">
+    <action name="validate-actstauts"/>
+    <action name="load-applicant-param"/>
+    <action name="save"/>
+  </action-group>
+
+  <action-method name="validate-actstauts">
+    <call class="com.hypaas.activiti.controller.LeaveProcessController" method="validateActstauts"/>
+  </action-method>
+
+  <action-method name="load-applicant-param">
+    <call class="com.hypaas.activiti.controller.LeaveProcessController" method="setDefaultApplicant"/>
+  </action-method>
+
+  <action-method name="action-leave-submit">
+    <call class="com.hypaas.activiti.controller.LeaveProcessController" method="leaveSubmit"/>
+  </action-method>
+
+  <action-method name="action-leave-delete">
+    <call class="com.hypaas.activiti.controller.LeaveProcessController" method="leaveDelete"/>
+  </action-method>
+
+  <!--################################待办页面展示任务详情用################################-->
+
+  <form name="leave-form-detail" title="Leaves" model="com.hypaas.activiti.db.Leave"
+        onNew="load-detail-param"
+        canArchive="false" canAttach="false" canCopy="false">
+    <panel title="Leave form">
+      <field name="applicant" type="one-to-one" readonly="true" title="Applicant"/>
+      <field name="title" readonly="true" title="Leave Title"/>
+      <field name="num" readonly="true" title="Leave num"/>
+      <field name="status" readonly="true" title="Leave Status"/>
+      <field name="reson" readonly="true" widget="html" colSpan="12" title="Leave reson"/>
+      <field name="actResult" readonly="true" title="Leave ActResult"/>
+    </panel>
+  </form>
+
+  <action-record name="load-detail-param" model="com.hypaas.activiti.db.Leave">
+    <field name="applicant" expr="eval: _applicant"/>
+    <field name="title" expr="eval: _title"/>
+    <field name="num" expr="eval: _num"/>
+    <field name="status" expr="eval: _status"/>
+    <field name="reson" expr="eval: _reson"/>
+    <field name="actResult" expr="eval: _actResult"/>
+  </action-record>
+
+</object-views>

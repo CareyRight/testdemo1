@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<domain-models xmlns="http://hypaas.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://hypaas.com/xml/ns/domain-models http://hypaas.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="activiti" package="com.hypaas.activiti.db"/>
+
+  <entity name="ExtendActNodeSet" cacheable="true" implements="java.io.Serializable">
+    <many-to-many name="approvers" ref="com.hypaas.auth.db.User" title="Approvers"/><!--审批人集合-->
+    <many-to-many name="judgList" ref="com.hypaas.activiti.db.ExtendActNodeField" title="JudgList"/><!--连线条件集合-->
+    <string name="modelId" title="Model Id"/><!--模型id-->
+    <string name="defid" title="Def Id"/><!--流程定义id-->
+    <string name="nodeId" title="Node Id"/><!-- 流程节点id-->
+    <string name="nodeName" title="Node Name"/><!-- 流程节点名称-->
+    <enum name="nodeType" ref="NodeType" title="Node Type"/><!--流程节点类型 =开始节点 2=审批节点 3=分支 4=连线 5=结束节点-->
+    <enum name="nodeAction" ref="NodeAction" title="Node Action"/><!--节点行为 2 的时候 ,1=审批 2=会签-->
+    <string name="changeFiles" title="Change Files"/><!--可更改的字段数据，以逗号隔开-->
+    <string name="callBack" title="Call Back"/><!--业务回调函数-->
+    <finder-method name="findNodeSetByModelId" using="modelId" all="true" cacheable="true"/>
+    <finder-method name="findByNodeIdModelId" using="nodeId,modelId" cacheable="true"/>
+  </entity>
+
+</domain-models>

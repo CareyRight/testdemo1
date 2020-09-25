@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<domain-models xmlns="http://hypaas.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://hypaas.com/xml/ns/domain-models http://hypaas.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="activiti" package="com.hypaas.activiti.db"/>
+
+  <entity name="Leave" cacheable="true" implements="java.io.Serializable" supportWf="true">
+    <string name="busId" title="Bus Id"/><!--业务唯一标识UUID,所有支持审批流实体必填的一个字段-->
+    <one-to-one name="applicant" ref="com.hypaas.auth.db.User" title="Applicant"/><!--请假人-->
+    <string name="title" title="Leave Title"/><!--标题-->
+    <integer name="num" title="HolidayNum"/><!--请假天数-->
+    <string name="reson" title="Reson"/><!--事由-->
+    <enum name="status" ref="ActStauts" title="Leave Status"/><!--业务流程状态  1=草稿 2=审批中 3=结束-->
+    <datetime name="startTime" title="Start Time"/><!--流程发起时间-->
+    <string name="instanceId" title="Instance Id"/><!--流程实例id-->
+    <string name="defid" title="Def Id"/><!--流程定义id-->
+    <string name="startUser" title="Start User"/><!--流程发起人-->
+    <string name="code" title="Code"/><!--业务流程单据编号-->
+    <string name="remark" title="Remark"/><!--备注-->
+    <enum name="actResult" ref="ActResult" title="Act Result"/><!--审批结果 1为同意,2为不同意,3为审批中-->
+    <finder-method name="findByBusId" using="busId" cacheable="true"/><!--通过唯一业务id查找-->
+  </entity>
+
+</domain-models>

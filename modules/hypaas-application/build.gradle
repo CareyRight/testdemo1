@@ -1,0 +1,9 @@
+apply plugin: 'com.hypaas.app-module'
+
+hypaas {
+  title = "Hypaas :: application"
+}
+
+dependencies {
+
+}

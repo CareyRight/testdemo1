@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://hypaas.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://hypaas.com/xml/ns/object-views http://hypaas.com/xml/ns/object-views/object-views_5.3.xsd">
+
+  <!--我的工作-->
+  <menuitem name="menu-my-job" order="-90"
+            title="My Jobs" icon="fa-tasks" icon-background="orange"/>
+
+  <!--流程管理-->
+  <menuitem name="menu-process-management" parent="menu-my-job" title="Process Management"/>
+
+  <!--流程构建-->
+  <menuitem name="menu-process-generator" parent="menu-process-management" title="Process Generator"
+            action="action-process-generator" />
+
+  <action-view name="action-process-generator" model="com.hypaas.activiti.db.ExtendActModel" title="ExtendActModel">
+    <view type="grid" name="ExtendActModel-grid"/>
+    <view type="form" name="ExtendActModel-form"/>
+  </action-view>
+
+  <!--流程预览-->
+  <menuitem name="menu-process-preview" parent="menu-process-management" title="Process Preview"
+            action="action-process-preview"/>
+
+  <!--全部流程预览-->
+  <action-view name="action-process-preview" model="com.hypaas.activiti.db.ExtendActFlowBus" title="ExtendActFlowBus">
+    <view type="grid" name="ExtendActFlowBus-grid"/>
+  </action-view>
+
+  <!--流程申请-->
+  <menuitem name="menu-process-apply" parent="menu-my-job" title="Process Apply"/>
+
+  <!--请假流程-->
+  <menuitem name="menu-process-holiday" parent="menu-process-apply" title="Process Holiday"
+            action="action-leave-apply"/>
+
+  <action-view name="action-leave-apply" model="com.hypaas.activiti.db.Leave" title="Leaves">
+    <view type="grid" name="activiti-leave-grid"/>
+    <view type="form" name="activiti-leave-form"/>
+  </action-view>
+
+  <!--待办管理-->
+  <menuitem name="menu-waiting-management" parent="menu-my-job" title="Waiting Management"/>
+
+  <!--我的待办-->
+  <menuitem name="menu-my-remaining" parent="menu-waiting-management" title="My Remaining"
+            action="action-my-remaining"/>
+
+  <action-view name="action-my-remaining" title="My Remaining" model="com.hypaas.activiti.db.ExtendActTaskLog">
+    <view type="grid" name="ExtendActTaskLog-my-remaining-grid"/>
+    <domain>self.advanceId = :advanceId AND self.appAction = null</domain>
+    <context name="advanceId" expr="eval: __user__"/>
+  </action-view>
+
+  <!--我的已办-->
+  <menuitem name="menu-my-handled" parent="menu-waiting-management" title="My Handled"
+            action="action-my-done"/>
+
+  <action-view name="action-my-done" title="My Handled" model="com.hypaas.activiti.db.ExtendActTaskLog">
+    <view type="grid" name="ExtendActTaskLog-my-done-grid"/>
+    <domain>self.dealId = :dealId AND self.advanceId != null</domain>
+    <context name="dealId" expr="eval: __user__"/>
+  </action-view>
+
+  <!--<action-method name="action-my-done">
+    <call class="com.hypaas.activiti.controller.ExtendActDealController" method="myDoneList"/>
+  </action-method>-->
+
+</object-views>

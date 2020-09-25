@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://hypaas.com/xml/ns/object-views"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://hypaas.com/xml/ns/object-views http://hypaas.com/xml/ns/object-views/object-views_5.3.xsd">
+
+  <grid name="ExtendActModel-grid" title="ExtendActModel" model="com.hypaas.activiti.db.ExtendActModel">
+    <field name="name"/>
+    <field name="status"/>
+    <field name="code"/>
+    <field name="description"/>
+    <button name="Node Settings" title="Node Settings" onClick="ExtendActModel-NodeSettings-action" icon="fa-cogs"/>
+    <button name="View Flowchart" title="View Flowchart" onClick="ExtendActModel-ViewFlowchart-action" icon="fa-file-archive-o"/>
+    <button name="Process Deployed" title="Process Deployed" showIf="status != '0'" onClick="ExtendActModel-ProcessDeployed-action" icon="fa-paper-plane"/>
+    <button name="Process Deleted" title="Process Deleted" onClick="ExtendActModel-ProcessDeleted-action" icon="fa-trash"/>
+  </grid>
+
+  <form name="ExtendActModel-form" title="ExtendActModel" model="com.hypaas.activiti.db.ExtendActModel"
+        canAttach="false"
+        width="large" onSave="action-ExtendActModel-save" canDelete="false">
+    <toolbar>
+      <button name="Node Settings" title="Node Settings" onClick="ExtendActModel-NodeSettings-action" icon="fa-cogs"/>
+      <button name="Process Deployed" title="Process Deployed" onClick="ExtendActModel-ProcessDeployed-action" icon="fa-paper-plane"/>
+    </toolbar>
+    <panel title="ExtendActModel form">
+      <field name="name" />
+      <field name="classEntityStr" onSelect="action-select-class-url"/>
+    </panel>
+    <panel-tabs>
+      <panel title="Process">
+        <field name="bpmnXml" showTitle="false" colSpan="12" widget="BpmnEditor" />
+        <field name="description" widget="html" colSpan="12" />
+        <field name="$bpmnDefault" hidden="true" type="string" />
+      </panel>
+    </panel-tabs>
+  </form>
+
+  <action-group name="action-ExtendActModel-save">
+    <action name="save"/>
+    <action name="ExtendActModel-processsave-action"/>
+  </action-group>
+
+  <action-method name="ExtendActModel-processsave-action">
+    <call class="com.hypaas.activiti.controller.ExtendActModelController" method="save"/>
+  </action-method>
+
+  <action-method name="ExtendActModel-NodeSettings-action">
+    <call class="com.hypaas.activiti.controller.ExtendActModelController" method="flowTree"/>
+  </action-method>
+  <action-method name="ExtendActModel-ViewFlowchart-action">
+    <call class="com.hypaas.activiti.controller.ExtendActModelController" method="showFlowImg"/>
+  </action-method>
+  <action-method name="ExtendActModel-ProcessDeployed-action">
+    <call class="com.hypaas.activiti.controller.ExtendActModelController" method="deploy"/>
+  </action-method>
+  <action-method name="ExtendActModel-ProcessDeleted-action">
+    <call class="com.hypaas.activiti.controller.ExtendActModelController" method="del"/>
+  </action-method>
+
+  <action-method name="action-select-class-url">
+    <call class="com.hypaas.activiti.controller.ExtendActModelController" method="loadClassUrls"/>
+  </action-method>
+</object-views>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models  xmlns="http://hypaas.com/xml/ns/domain-models" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://hypaas.com/xml/ns/domain-models http://hypaas.com/xml/ns/domain-models/domain-models_5.2.xsd">
+  <module package="com.db.demo.entity" name="entitys"/>
+  <entity sequential="true" logUpdates="true" name="Order" lang="java">
+    <string namecolumn="false" name="name"/>
+    <integer name="code"/>
+  </entity>
+</domain-models>

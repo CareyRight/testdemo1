@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://hypaas.com/xml/ns/object-views"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://hypaas.com/xml/ns/object-views http://hypaas.com/xml/ns/object-views/object-views_5.3.xsd">
+
+  <grid name="ExtendActTaskLog-grid" title="ExtendActTaskLog" model="com.hypaas.activiti.db.ExtendActTaskLog"
+        canDelete="false" canEdit="false" canNew="false" canSave="false" canArchive="false" edit-icon="false" customSearch="false"
+        orderBy="-createdOn">
+    <field name="taskName" title="Task Name"/><!--流程任务名称-->
+    <field name="advanceId" title="Advance Id"/><!--预处理人-->
+    <field name="dealId" title="Deal Id"/><!--处理人-->
+    <field name="appAction" title="App Action"/><!--审批行为 同意、不同意、驳回、会签 等-->
+    <field name="appOpinion" title="App Opinion"/><!--审批意见-->
+    <field name="dealTime" title="Deal Time"/><!--办理时间-->
+    <field name="createTime" title="Create Time"/><!--任务创建时间-->
+    <field name="busId" title="Bus Id"/><!--业务id-->
+    <field name="defId" title="Def Id"/><!--流程定义id-->
+    <field name="instanceId" title="Instance Id"/><!--流程实例id-->
+    <field name="taskId" title="Task Id"/><!--流程任务id-->
+    <field name="agenId" title="Agen Id"/><!--代理人-->
+    <field name="isSign" title="Is Sign"/><!--是否显示签名-->
+    <field name="columns" large="true" title="Columns"/><!--业务表更改的字段记录-->
+  </grid>
+
+  <!--###############################################我的待办-展示###############################################-->
+  <grid name="ExtendActTaskLog-my-remaining-grid" title="ExtendActTaskLog" model="com.hypaas.activiti.db.ExtendActTaskLog"
+        canDelete="false" canEdit="false" canNew="false" canSave="false" canArchive="false" edit-icon="false" customSearch="false"
+        orderBy="-createdOn">
+    <field name="taskName" title="Task Name"/><!--流程任务名称-->
+    <field name="advanceId" title="Advance Id"/><!--预处理人-->
+    <field name="dealId" title="Deal Id"/><!--处理人-->
+    <field name="appAction" title="App Action"/><!--审批行为 同意、不同意、驳回、会签 等-->
+    <field name="appOpinion" title="App Opinion"/><!--审批意见-->
+    <field name="dealTime" title="Deal Time"/><!--办理时间-->
+    <field name="createTime" title="Create Time"/><!--任务创建时间-->
+    <field name="busId" title="Bus Id"/><!--业务id-->
+    <field name="defId" title="Def Id"/><!--流程定义id-->
+    <field name="instanceId" title="Instance Id"/><!--流程实例id-->
+    <field name="taskId" title="Task Id"/><!--流程任务id-->
+    <field name="agenId" title="Agen Id"/><!--代理人-->
+    <field name="isSign" title="Is Sign"/><!--是否显示签名-->
+    <field name="columns" large="true" title="Columns"/><!--业务表更改的字段记录-->
+    <button name="process handle" title="Process Handle" onClick="ExtendActFlowBus-Handle-The-Task" icon="fa-level-up"/>
+  </grid>
+
+  <action-method name="ExtendActFlowBus-Handle-The-Task">
+    <call class="com.hypaas.activiti.controller.ExtendActDealController" method="toDoActTaskView"/>
+  </action-method>
+
+  <!--###############################################我的已办-展示###############################################-->
+  <grid name="ExtendActTaskLog-my-done-grid" title="ExtendActTaskLog" model="com.hypaas.activiti.db.ExtendActTaskLog"
+        canDelete="false" canEdit="false" canNew="false" canSave="false" canArchive="false" edit-icon="false" customSearch="false"
+        orderBy="-createdOn">
+    <field name="taskName" title="Task Name"/><!--流程任务名称-->
+    <field name="advanceId" title="Advance Id"/><!--预处理人-->
+    <field name="dealId" title="Deal Id"/><!--处理人-->
+    <field name="appAction" title="App Action"/><!--审批行为 同意、不同意、驳回、会签 等-->
+    <field name="appOpinion" title="App Opinion"/><!--审批意见-->
+    <field name="dealTime" title="Deal Time"/><!--办理时间-->
+    <field name="createTime" title="Create Time"/><!--任务创建时间-->
+    <field name="busId" title="Bus Id"/><!--业务id-->
+    <field name="defId" title="Def Id"/><!--流程定义id-->
+    <field name="instanceId" title="Instance Id"/><!--流程实例id-->
+    <field name="taskId" title="Task Id"/><!--流程任务id-->
+    <field name="agenId" title="Agen Id"/><!--代理人-->
+    <field name="isSign" title="Is Sign"/><!--是否显示签名-->
+    <field name="columns" large="true" title="Columns"/><!--业务表更改的字段记录-->
+  </grid>
+
+</object-views>

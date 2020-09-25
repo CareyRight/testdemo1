@@ -1,0 +1,52 @@
+apply plugin: 'com.hypaas.app-module'
+
+hypaas {
+  title = "Hypaas :: activiti"
+}
+
+dependencies {
+
+}
+
+def updateJsp(jspFile, check, lines) {
+  def jsp = file("${rootProject.buildDir}/webapp/${jspFile}")
+  def text = lines.join("\n");
+  if (jsp.exists()) {
+    def jspText = jsp.getText('UTF-8')
+    if (jspText.indexOf(check) == -1) {
+      text = jspText + text
+    }
+  }
+  file(jsp).write(text, 'UTF-8')
+}
+//XXX: this task should be removed when we introduce per module webapp support in Hypaas Open Platform
+task copyWebapp(type: Copy) {
+  destinationDir = file(rootProject.buildDir)
+  into("webapp/activiti/custom-model") {
+    from "src/main/webapp/custom-model"
+  }
+  into("webapp/css") {
+    from "src/main/webapp/css"
+  }
+  into("webapp/lib") {
+    from "src/main/webapp/lib"
+  }
+  into("webapp/js/form") {
+    from "src/main/webapp/js/form"
+  }
+  doLast {
+    // update index-head.jsp
+    updateJsp("index-head.jsp", "diagram-js.css", [
+            '<link href="lib/bpmn-js/assets/bpmn-font/css/bpmn-embedded.css" rel="stylesheet">',
+            '<link href="lib/bpmn-js/assets/diagram-js.css" rel="stylesheet">',
+            '<link href="lib/bpmn-properties/css/app.css" rel="stylesheet">',
+            '<link href="css/bpmn.css" rel="stylesheet">'])
+    // update index-foot.jsp
+    updateJsp("index-foot.jsp", "bpmn-modeler.js", [
+            '<script src="lib/bpmn-js/bpmn-modeler.js"></script>',
+            '<script src="lib/bpmn-properties/index.js"></script>',
+            '<script src="js/form/form.bpmn.js"></script>'
+    ])
+  }
+}
+rootProject.tasks.war.dependsOn copyWebapp

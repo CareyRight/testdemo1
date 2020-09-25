@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<domain-models xmlns="http://hypaas.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://hypaas.com/xml/ns/domain-models http://hypaas.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="activiti" package="com.hypaas.activiti.db"/>
+
+  <entity name="ProcessTaskDto" cacheable="true" repository="none" persistable="false" implements="java.io.Serializable">
+    <one-to-one name="defId" ref="com.hypaas.activiti.db.Flows" title="Process Defination Id"/><!--流程定义id,先选择具体流程-->
+    <string name="instanceId" title="Process Instance Id"/><!--流程实例id-->
+    <enum name="status" ref="com.hypaas.activiti.db.ActStauts" title="Process Status"/><!--业务流程状态  1=草稿 2=审批中 3=结束-->
+    <string name="taskId" title="Task Id"/><!--任务id-->
+    <string name="taskName" title="Task Name"/><!--任务名称-->
+    <string name="nodeType" title="Node Type"/><!--节点类型-->
+    <one-to-one name="nextUserIds" ref="com.hypaas.auth.db.User" title="Next User Ids"/><!--下一个流向办理人 以逗号隔开-->
+    <string name="actKey" title="Act Key"/><!--流程actKey-->
+    <string name="busId" title="Bus Id"/><!--业务id-->
+    <string name="remark" title="remark"/><!--完成任务备注-->
+    <boolean name="isSignature" title="IsSignature"/><!--是否签名，显示-->
+    <enum name="isAgree" ref="ApprovalOpinions" title="IsAgree"/><!--是否同意 0=是 1=否-->
+    <datetime name="createTime" title="Create Time"/><!--任务创建时间-->
+    <datetime name="dealTime" title="Deal Time"/><!--任务处理时间-->
+    <one-to-one name="startUser" ref="com.hypaas.auth.db.User" title="Start User"/><!--流程发起人-->
+    <one-to-one name="dealUser" ref="com.hypaas.auth.db.User" title="Deal User"/><!--流程处理人-->
+    <one-to-one name="advanceUser" ref="com.hypaas.auth.db.User" title="Advance User"/><!--流程预处理人-->
+    <string name="busName" title="Bus Name"/><!--业务名称-->
+    <string name="varName" title="Var Name"/><!--下一级流程变量名,以逗号隔开-->
+    <string name="varValue" title="Var Value"/><!--下一级流程变量值,以逗号隔开-->
+  </entity>
+
+</domain-models>

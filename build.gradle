@@ -1,0 +1,55 @@
+buildscript {
+  ext.repos = {
+      //mavenLocal()
+      mavenCentral()
+      maven { url 'https://plugins.gradle.org/m2/' }
+      jcenter()
+      maven { url 'http://112.74.97.247:8090/repository/GradleRep/' }
+  }
+  ext.platformVersion = '1.0.+'
+  ext.appVersion = '1.0.0'
+  repositories repos
+  dependencies {
+    classpath "com.hypaas:hypaas-gradle:${platformVersion}"
+  }
+}
+
+allprojects {
+  repositories repos
+}
+
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'com.hypaas.app'
+
+apply from: './gradle/style.gradle'
+
+hypaas {
+  title = "HY-IOT-PAAS"
+  description = "Hypaas IOT Platform"
+}
+
+allprojects {
+  apply plugin: 'idea';
+  apply plugin: 'eclipse'
+
+  group = "com.hypaas"
+  version = "${appVersion}"
+
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+}
+configurations {
+  runtime.exclude group: 'javax.ws.rs', module: 'jsr311-api'
+}
+dependencies {
+  implementation project(":modules:hypaas-application")
+  implementation project(":modules:hypaas-activiti")
+  implementation project(":modules:hypaas-demo")
+
+}
+
+wrapper {
+  gradleVersion = "6.3"
+}
+

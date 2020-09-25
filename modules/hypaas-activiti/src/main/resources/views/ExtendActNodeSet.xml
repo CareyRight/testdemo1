@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://hypaas.com/xml/ns/object-views"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://hypaas.com/xml/ns/object-views http://hypaas.com/xml/ns/object-views/object-views_5.3.xsd">
+
+  <grid name="ExtendActNodeSet-grid" title="ExtendActNodeSet" model="com.hypaas.activiti.db.ExtendActNodeSet"
+        canNew="false" canDelete="false" canArchive="false" customSearch="false">
+    <field name="nodeName"/>
+    <field name="modelId"/>
+    <field name="nodeType"/>
+    <field name="nodeAction"/>
+  </grid>
+
+  <form name="ExtendActNodeSet-form" title="ExtendActNodeSet" model="com.hypaas.activiti.db.ExtendActNodeSet"
+        canNew="false" canAttach="false"
+        width="large">
+    <panel title="ExtendActNodeSet form">
+      <field name="nodeName" readonly="true"/>
+      <field name="modelId" readonly="true"/>
+      <field name="nodeId" readonly="true"/>
+      <field name="nodeType" readonly="true"/>
+      <field name="nodeAction" showIf="nodeType == 'APPROVAL_NODE'"/>
+      <field name="changeFiles" showIf="nodeType == 'APPROVAL_NODE'"/>
+      <field name="callBack"/>
+      <field name="approvers" colSpan="12" canSelect="true" showIf="nodeType == 'APPROVAL_NODE'"/>
+      <field name="judgList" colSpan="12" canSelect="true" showIf="nodeType == 'APPROVAL_NODE'"/>
+    </panel>
+  </form>
+</object-views>

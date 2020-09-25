@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://hypaas.com/xml/ns/object-views"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://hypaas.com/xml/ns/object-views http://hypaas.com/xml/ns/object-views/object-views_5.3.xsd">
+
+  <!--########################################################################-->
+
+  <grid title="ProcessTaskDto" name="process-task-dto-grid" model="com.hypaas.activiti.db.ProcessTaskDto">
+    <field name="startUser" readonly="true" title="Start User"/>
+    <field name="status" readonly="true" title="Process Status"/>
+    <field name="createTime" readonly="true" title="Create Time"/>
+    <field name="dealTime" readonly="true" title="Deal Time"/>
+    <field name="dealUser" readonly="true" title="Deal User"/>
+    <field name="advanceUser" readonly="true" title="Advance User"/>
+    <field name="instanceId" readonly="true" title="Process Instance Id"/>
+    <field name="taskId" readonly="true" title="Task Id"/>
+    <field name="taskName" readonly="true" title="Task Name"/>
+    <field name="nodeType" readonly="true" title="Node Type"/>
+    <field name="actKey" readonly="true" title="Act Key"/>
+    <field name="busId" readonly="true" title="Bus Id"/>
+    <field name="busName" readonly="true" title="Bus Name"/>
+    <field name="varName" readonly="true" title="Var Name"/>
+    <field name="varValue" readonly="true" title="Var Value"/>
+    <field name="isSignature" widget="boolean-switch" title="IsSignature"/>
+    <field name="isAgree" showIf="isAgree != null" title="IsAgree"/>
+    <field name="defId" title="Process Defination Id"/>
+    <field name="nextUserIds" title="Next User Ids"/>
+  </grid>
+
+  <!--######################提交申请单展示用#########################-->
+  <form name="process-task-dto-form" title="ProcessTaskDto" model="com.hypaas.activiti.db.ProcessTaskDto"
+        width="large" canNew="false"
+        onNew="record-load-param">
+    <panel title="ProcessTaskDto Form" showTitle="false">
+      <field name="startUser" readonly="true" title="Start User"/>
+      <field name="status" readonly="true" title="Process Status"/>
+      <field name="nodeType" readonly="true" title="Node Type"/>
+      <field name="actKey" readonly="true" title="Act Key"/>
+      <field name="busId" readonly="true" title="Bus Id"/>
+      <field name="busName" readonly="true" title="Bus Name"/>
+    </panel>
+    <panel-tabs>
+      <panel title="Selection">
+        <field name="defId" colSpan="12" onChange="action-load-params" title="Process Defination"/>
+        <field name="nextUserIds" colSpan="12" onSelect="action-group-user-domain" title="Next User"/>
+        <button name="submit" onClick="action-group-process-submit" colSpan="6" colOffset="3" icon="fa-space-shuttle"/>
+      </panel>
+      <panel title="Remark">
+        <field name="remark" widget="html" colSpan="12" title="Remark"/>
+      </panel>
+    </panel-tabs>
+  </form>
+
+  <action-record name="record-load-param" model="com.hypaas.activiti.db.ProcessTaskDto">
+    <field name="startUser" expr="eval: _startUser"/>
+    <field name="status" expr="eval: _status"/>
+    <field name="busId" expr="eval: _busId"/>
+  </action-record>
+
+  <action-group name="action-group-user-domain">
+    <action name="action-user-domain-validation"/>
+    <action name="action-user-domain"/>
+  </action-group>
+
+  <action-validate name="action-user-domain-validation">
+    <error message="defId can't is null!" if="defId == null"/>
+  </action-validate>
+
+  <action-method name="action-user-domain">
+    <call class="com.hypaas.activiti.controller.ExtendActDealController" method="setUserDomain"/>
+  </action-method>
+
+  <action-method name="action-load-params">
+    <call class="com.hypaas.activiti.controller.ExtendActDealController" method="loadParams"/>
+  </action-method>
+
+  <action-group name="action-group-process-submit">
+    <action name="action-process-submit-validation"/>
+    <action name="action-process-submit"/>
+  </action-group>
+
+  <action-validate name="action-process-submit-validation">
+    <error message="defId can't is null!" if="defId == null"/>
+    <error message="nextUserIds can't is null!" if="nextUserIds == null"/>
+  </action-validate>
+
+  <action-method name="action-process-submit">
+    <call class="com.hypaas.activiti.controller.ExtendActDealController" method="startFlow"/>
+  </action-method>
+
+  <!--##############################办理任务中途选择下级审批人####################################-->
+  <form name="process-task-dto-select-user-form" title="ProcessTaskDto Select Next Task Assgine" model="com.hypaas.activiti.db.ProcessTaskDto"
+        width="large" canNew="false"
+        onNew="record-load-ProcessTaskDto-param">
+    <panel title="Next Task Detail" showTitle="false">
+      <field name="$nextActNodes" type="one-to-many" canNew="false" canSelect="false" colSpan="12"  target="com.hypaas.activiti.db.ProcessNodeDto" grid-view="process-node-dto-grid"/>
+      <field name="remark" widget="html" colSpan="12" title="App Opinion"/>
+    </panel>
+    <panel title="Selection">
+      <field name="$nodesetEntity" type="one-to-many" target="com.hypaas.activiti.db.ExtendActNodeSet" hidden="true"/>
+      <field name="nextUserIds" colSpan="12" onSelect="action-select-task-users" title="Next User Ids"/>
+      <button name="submit" onClick="action-submit-current-task" colSpan="6" colOffset="3" iconHover="process-submit" icon="fa-space-shuttle"/>
+    </panel>
+  </form>
+
+  <action-record name="record-load-ProcessTaskDto-param" model="com.hypaas.activiti.db.ProcessTaskDto">
+    <field name="defId" expr="eval: _defId"/>
+    <field name="instanceId" expr="eval: _instanceId"/>
+    <field name="taskId" expr="eval: _taskId"/>
+    <field name="busId" expr="eval: _busId"/>
+    <field name="nodesetEntity" expr="eval: _nodesetEntity"/>
+    <field name="nextActNodes" expr="eval: _nextActNodes"/>
+  </action-record>
+
+  <action-method name="action-get-task-fileds">
+    <call class="com.hypaas.activiti.controller.ExtendActDealController" method="getChangeFileds"/>
+  </action-method>
+
+  <action-method name="action-select-task-users">
+    <call class="com.hypaas.activiti.controller.ExtendActDealController" method="getUsersByNodeIdModelId"/>
+  </action-method>
+
+  <action-method name="action-submit-current-task">
+    <call class="com.hypaas.activiti.controller.ExtendActDealController" method="doActTask"/>
+  </action-method>
+
+</object-views>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://hypaas.com/xml/ns/object-views"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://hypaas.com/xml/ns/object-views http://hypaas.com/xml/ns/object-views/object-views_5.3.xsd">
+
+  <!--########################################################################-->
+
+  <grid title="ProcessNodeDto" name="process-node-dto-grid" model="com.hypaas.activiti.db.ProcessNodeDto">
+    <field name="nodeId" title="Node Id"/><!--结点id-->
+    <field name="nodeName" title="Node Name"/><!--节点名字-->
+    <field name="nodeType" title="Node Type"/><!--节点类型 =1开始节点 2=审批节点 3=分支 4=连线 5=结束节点-->
+    <field name="nodeAction" title="Node Action"/><!--节点行为 1=审批 2=会签-->
+    <field name="nodeActionName" title="Node Action Name"/><!--节点行为名字-->
+    <field name="nodeTypeName" title="Node Type Name"/><!--节点类型名字-->
+  </grid>
+
+</object-views>

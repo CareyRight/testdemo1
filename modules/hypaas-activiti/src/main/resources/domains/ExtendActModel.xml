@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<domain-models xmlns="http://hypaas.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://hypaas.com/xml/ns/domain-models http://hypaas.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="activiti" package="com.hypaas.activiti.db"/>
+
+  <sequence name="auth.actModelCode.seq" initial="1" increment="1" padding="5" prefix="MC"/>
+
+  <entity name="ExtendActModel" cacheable="true" implements="java.io.Serializable">
+    <integer name="actVersion" default="0" title="Act Version"/><!--流程版本号-->
+    <string name="deploymentId" title="Deployment Id"/><!--activiti中的部署表id-->
+    <one-to-one name="classEntityStr" ref="com.hypaas.meta.db.MetaModel"/><!--用审批流类的类全路径代替手动输入类路径-->
+    <string name="actKey" title="Act Key"/><!--用审批流类的类名代替手动输入标识-->
+    <string name="description" title="Description"/><!--流程描述-->
+    <string name="bpmnXml" large="true" title="Process Content"/>
+    <string name="modelId" title="Model Id"/><!--activiti中的模型表id-->
+    <string name="name" required="true" title="Name"/><!--模型名称-->
+    <enum name="status" ref="ActModelStatus" title="Status"/><!--发布状态 0:已发布 1：未发布-->
+    <string name="code" sequence="auth.actModelCode.seq" title="Code"/><!--业务流程单据编号-->
+  </entity>
+
+  <!--流程模型发布状态-->
+  <enum name="ActModelStatus">
+    <item name="PUBLISHED" value="0" title="Published"/><!--已发布-->
+    <item name="UNPUBLISHED" value="1" title="Unpublished"/><!--未发布-->
+  </enum>
+
+  <!--流程状态-->
+  <enum name="ActStauts">
+    <item name="DRAFT" value="1" title="Draft"/><!--草稿-->
+    <item name="APPROVAL" value="2" title="Approval"/><!--审批中-->
+    <item name="END" value="3" title="End"/><!--结束-->
+  </enum>
+
+  <!--整个流程的审批结果-->
+  <enum name="ActResult">
+    <item name="AGREE" value="1" title="Agree"/><!--同意-->
+    <item name="DISAGREE" value="2" title="Disagree"/><!--不同意-->
+    <item name="APPROVAL" value="3" title="Approval"/><!--审批中-->
+  </enum>
+
+  <!--各任务节点审批结果-->
+  <enum name="ActTaskResult">
+    <item name="AGREE" value="1" title="Agree"/><!--同意-->
+    <item name="DISAGREE" value="2" title="Disagree"/><!--反对-->
+    <item name="ABSTAINED" value="3" title="Abstained"/><!--弃权-->
+    <item name="TURN_DOWN" value="4" title="Turn Down"/><!--驳回-->
+    <item name="TURN_DO" value="5" title="Turn Do"/><!--转办-->
+  </enum>
+
+  <!--节点类型-->
+  <enum name="NodeType">
+    <item name="START_NODE" value="1" title="Start Node"/><!--开始节点-->
+    <item name="APPROVAL_NODE" value="2" title="Approval Node"/><!--审批节点-->
+    <item name="BRANCH_NODE" value="3" title="Branch Node"/><!--分支节点-->
+    <item name="CONNECTION_NODE" value="4" title="Connection Node"/><!--连接-->
+    <item name="EVENT_NODE" value="5" title="Event Node"/><!--结束节点-->
+    <item name="INCLUSIVE_NODE" value="7" title="Inclusive Node"/><!--包含节点-->
+    <item name="PARALLEL_NODE" value="6" title="Parallel Node"/><!--并行节点-->
+  </enum>
+
+  <!--节点动作-->
+  <enum name="NodeAction">
+    <item name="ACTION_APPROVA" value="1" title="Action Approval"/><!--审批-->
+    <item name="ACTION_COUNTERSIGN" value="2" title="Action CounterSign"/><!--会签-->
+  </enum>
+
+  <!--是否同意-->
+  <enum name="ApprovalOpinions">
+    <item name="AGREE" value="0" title="Agree"/><!--同意-->
+    <item name="REFUSE" value="1" title="Refuse"/><!--拒绝-->
+  </enum>
+
+</domain-models>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://hypaas.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://hypaas.com/xml/ns/object-views http://hypaas.com/xml/ns/object-views/object-views_5.3.xsd">
+
+  <menuitem name="menu-application" parent="menu-admin" order="0" title="Application Management"/>
+
+  <menuitem name="menu-application-item" parent="menu-application" title="Application Item"
+            action="action-app-application" />
+
+  <action-view name="action-app-application" model="com.hypaas.app.db.Application" title="Applications">
+    <view type="grid" name="application-grid"/>
+    <view type="form" name="application-form"/>
+  </action-view>
+
+</object-views>

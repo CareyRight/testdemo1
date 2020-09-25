@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<domain-models xmlns="http://hypaas.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://hypaas.com/xml/ns/domain-models http://hypaas.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="activiti" package="com.hypaas.activiti.db"/>
+
+  <entity name="ProcessNodeDto" cacheable="true" repository="none" persistable="false" implements="java.io.Serializable">
+    <string name="nodeId" title="Node Id"/><!--结点id-->
+    <string name="nodeName" title="Node Name"/><!--节点名字-->
+    <string name="nodeType" title="Node Type"/><!--节点类型 =1开始节点 2=审批节点 3=分支 4=连线 5=结束节点-->
+    <string name="nodeAction" title="Node Action"/><!--节点行为 1=审批 2=会签-->
+    <string name="nodeActionName" title="Node Action Name"/><!--节点行为名字-->
+    <string name="nodeTypeName" title="Node Type Name"/><!--节点类型名字-->
+  </entity>
+
+</domain-models>

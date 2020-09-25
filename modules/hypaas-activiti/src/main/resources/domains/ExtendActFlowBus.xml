@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<domain-models xmlns="http://hypaas.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://hypaas.com/xml/ns/domain-models http://hypaas.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="activiti" package="com.hypaas.activiti.db"/>
+
+  <entity name="ExtendActFlowBus" cacheable="true" implements="java.io.Serializable">
+    <string name="busId" title="Bus Id"/><!--业务 ID-->
+    <enum name="status" ref="ActStauts" title="Status"/><!--业务流程状态  1=草稿 2=审批中 3=结束-->
+    <datetime name="startTime" title="Start Time"/><!--流程发起时间-->
+    <string name="instanceId" title="Instance Id"/><!--流程实例id-->
+    <string name="defid" title="Defid"/><!--流程定义id-->
+    <one-to-one name="startUserId" ref="com.hypaas.auth.db.User" title="StarUserId"/><!--流程发起人-->
+    <string name="code" title="Code"/><!--业务流程单据编号-->
+    <string name="actKey" title="ActKey"/><!--流程key-->
+    <string name="tableName" title="TableName"/><!--业务表名-->
+    <finder-method name="queryByBusIdInsId" using="busId,instanceId" cacheable="true"/>
+  </entity>
+
+</domain-models>

@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<domain-models xmlns="http://hypaas.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://hypaas.com/xml/ns/domain-models http://hypaas.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="activiti" package="com.hypaas.activiti.db"/>
+
+  <entity name="Flows" cacheable="true" implements="java.io.Serializable">
+    <string name="defid" title="Def Id"/><!--流程定义id-->
+    <string name="name" title="Name"/><!--流程名称-->
+    <string name="deploymentId" title="Deployment Id"/><!--流程部署id-->
+    <string name="description" title="Description"/><!--流程描述信息-->
+    <string name="actKey" title="Act Key"/><!--actKey-->
+    <finder-method name="findByDefId" using="defid" cacheable="true"/>
+  </entity>
+
+</domain-models>

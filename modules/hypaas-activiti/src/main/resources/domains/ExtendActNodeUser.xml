@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<domain-models xmlns="http://hypaas.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://hypaas.com/xml/ns/domain-models http://hypaas.com/xml/ns/domain-models/domain-models_5.3.xsd">
+
+  <module name="activiti" package="com.hypaas.activiti.db"/>
+
+  <entity name="ExtendActNodeUser" cacheable="true" implements="java.io.Serializable">
+    <string name="nodeId" title="Node Id"/><!--节点id-->
+    <string name="userType" title="User Type"/><!--用户类型 1=用户 2=角色 3=组织-->
+    <one-to-one name="approver" ref="com.hypaas.auth.db.User" title="Approver"/><!--审批用户-->
+    <string name="typeName" title="Type Name"/><!--审批类型名称-->
+  </entity>
+
+</domain-models>

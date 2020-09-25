@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://hypaas.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://hypaas.com/xml/ns/object-views http://hypaas.com/xml/ns/object-views/object-views_5.3.xsd">
+
+  <grid name="application-grid" title="Applications" model="com.hypaas.app.db.Application">
+    <field name="name"/>
+    <field name="code"/>
+    <field name="remarks"/>
+    <field name="userArray"/>
+  </grid>
+
+  <form name="application-form" title="Application" model="com.hypaas.app.db.Application">
+    <panel title="Overview">
+      <field name="name" placeholder="application name" />
+      <field name="code" placeholder="application code"/>
+      <field name="remarks" colSpan="12" widget="html" placeholder="remarks"/>
+    </panel>
+    <panel-tabs>
+      <panel-related field="userArray" form-view="user-form" grid-view="user-grid"/>
+    </panel-tabs>
+  </form>
+
+
+</object-views>

@@ -4,5 +4,6 @@
   <entity sequential="true" logUpdates="true" name="Order" lang="java">
     <string namecolumn="false" name="name"/>
     <integer name="code"/>
+    <decimal title="Amount" name="amount"/>
   </entity>
 </domain-models>
